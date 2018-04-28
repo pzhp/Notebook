@@ -1,8 +1,11 @@
 Some important C++ usage from [redxdev/ECS](https://github.com/redxdev/ECS/blob/master/ECS.h).
 # ECS & world
-E: is not extension point
-C: extended by base class and tmeplate subclass
-S: extended by subclass
+E: is not extension point 
+
+C: extended by base class and tmeplate subclass 
+
+S: extended by subclass 
+
 world
 
 # type is map key
@@ -10,6 +13,7 @@ world
 <typeindex>  type_index
 
 # allocate
+```C++
 using ComponentAllocator = std::allocator_traits<World::EntityAllocator>::template rebind_alloc<Internal::ComponentContainer<T>>;
 
 ComponentAllocator alloc(world->getPrimaryAllocator());
@@ -19,9 +23,11 @@ std::allocator_traits<ComponentAllocator>::construct(alloc, container, T(args...
 
 std::allocator_traits<EntityAllocator>::destroy(entAlloc, ent);
 std::allocator_traits<EntityAllocator>::deallocate(entAlloc, ent, 1);
+```
 
 # iterator and view
-lambda-based each, there's also an iterator-based each
+```C++
+// lambda-based each, there's also an iterator-based each
 
 struct iterator {
     bool operator!=() {
@@ -58,8 +64,9 @@ Internal::EntityComponentView<Types...> each(bool bIncludePendingDestroy = false
     Internal::EntityComponentIterator<Types...> last(this, getCount(), true, bIncludePendingDestroy);
     return Internal::EntityComponentView<Types...>(first, last);
 }
-
+```
 # select item by types
+```C++
 // test every type recursily expan package
 template<typename... types>
 selectEntity<typess...>()
@@ -71,8 +78,9 @@ template<typename T, typname U, typename ... Types>
 bool has() const {
     return has<T>() && has<U, Types...>();
 }
-
+```
 # entity and component
+```C++
 // old way
 struct MyComponent : public IConpnent{};
 std::unorder_map<type_index, IConpnent*> components;
@@ -80,9 +88,10 @@ std::unorder_map<type_index, IConpnent*> components;
 // new way: abstract base class + template subclass 
 // component and event both use template subclass, not inherit
 std::unorder_map<type_index, ConpnentBase*> components;
-
+```
 
 # event
+```C++
 // type is event: 
 template<typename T>
 class EventSubscriber : public Internal::BaseEventSubscriber
@@ -114,9 +123,10 @@ public:
 
 MyEventSubscriber* mySubscriber = new MyEventSubscriber();
 world->subscribe<MyEvent>(mySubscriber);
-
+```
 
 # backup
+```C++
 template<typename... Ts> void func(Ts... args){
     const int size = sizeof...(args) + 2;
     int res[size] = {1,args...,2};
@@ -137,19 +147,16 @@ template<class...X> void func(int arg) throw(X...)
  // ... throw different Xs in different situations
 }
 
-## pack expanse
+// pack expanse
 template <class ...Args>
 void expand(Args... args)
 {
    finalexpand(printarg(args)...);
 }
 
-### 
- int arr[] = {(printarg(args), 0)...};
+int arr[] = {(printarg(args), 0)...};
 
-
-###
- //整型序列的定义
+//整型序列的定义
 template<int...>
 struct IndexSeq{};
 
@@ -170,3 +177,4 @@ int main()
     cout <<typeid(T).name() << endl;
     return 0;
 }
+```
