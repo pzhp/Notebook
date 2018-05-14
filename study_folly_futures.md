@@ -1,16 +1,28 @@
 Stage: **then**
 
+**How is then implement?**
+- callableResult store info: isTry, Argument Type by std::conditional<> && decltype && declval
+- use Try in inner callback
+
+```C++
+
 template <typename F, typename R = futures::detail::callableResult<T, F>>
 typename R::Return then(F&& func) {
   return this->template thenImplementation<F, R>(
       std::forward<F>(func), typename R::Arg());
 }
 
-Note:
-- callback funcion return future, conitnue to then, otherwise assign to a future var?
+template <typename F, typename R, bool isTry, typename... Args>
+typename std::enable_if<!R::ReturnsFuture::value, typename R::Return>::type
+thenImplementation(F&& func, futures::detail::argResult<isTry, F, Args...>);
 
-```C++
+// set it in callback
+auto tf2 = state.tryInvoke(t.template get<isTry, Args>()...);
 
+// call callback
+core->callback_(std::move(*core->result_));
+
+// 
 template <typename F, typename... Args>
 using resultOf = decltype(std::declval<F>()(std::declval<Args>()...));
 
@@ -47,4 +59,19 @@ struct callableResult {
   typedef Future<typename ReturnsFuture::Inner> Return;
 };
 
+// Try
+template <bool isTry, typename R>
+typename std::enable_if<isTry, R>::type get() {
+return std::forward<R>(*this);
+}
+
+template <bool isTry, typename R>
+typename std::enable_if<!isTry, R>::type get() {
+return std::forward<R>(value());
+}
+
 ```
+
+**How is wait ?**
+
+
