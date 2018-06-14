@@ -8,4 +8,13 @@ static inline int fetch_and_add(int* variable, int value)
       );
       return value;
   }
+  
+  
+  // ++atomic
+        lock xaddl      %eax, (%rdx)
+        addl    $1, %eax
+        
+ // atomic++
+        lock xaddl      %edx, (%rax)
+        movl    %edx, %eax
   ```
