@@ -44,9 +44,7 @@ perf record -e ${bin_name}:${beg_name} -e ${bin_name}:${end_name} -a sleep 10
 
  perf script -i perf.data | ./FlameGraph/stackcollapse-perf.pl | ./FlameGraph/flamegraph.pl > perf.svg
 
- 如果sleep， 普通模式捕获不到sample
-
-
+ 
  CPU Statistics  "perf stat"
  Timed Profiling "perf record -F 99 -a -g -- sleep 30"
  Event Profiling "perf record -e L1-dcache-load-misses -c 10000 -ag -- sleep 5"
@@ -65,15 +63,3 @@ perf record -e L1-dcache-load-misses -c 10000 -ag -- sleep 5
 
 perf record -e probe_a:beg  -e probe_a:end -aR sleep 20
 
- -- off CPU
- # perf record -e sched:sched_stat_sleep -e sched:sched_switch \
-    -e sched:sched_process_exit -a -g -o perf.data.raw sleep 1
-# perf inject -v -s -i perf.data.raw -o perf.data
-# perf script -f comm,pid,tid,cpu,time,period,event,ip,sym,dso,trace | awk '
-    NF > 4 { exec = $1; period_ms = int($5 / 1000000) }
-    NF > 1 && NF <= 4 && period_ms > 0 { print $2 }
-    NF < 2 && period_ms > 0 { printf "%s\n%d\n\n", exec, period_ms }' | \
-    ./stackcollapse.pl | \
-    ./flamegraph.pl --countname=ms --title="Off-CPU Time Flame Graph" --colors=io > offcpu.svg
-
-# echo 1 > /proc/sys/kernel/sched_schedstats
