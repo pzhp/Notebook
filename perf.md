@@ -39,12 +39,9 @@ perf record -e ${bin_name}:${beg_name} -e ${bin_name}:${end_name} -a sleep 10
 
 
 -- others
- perf_events Off-CPU Time Flame Graph
- `pgrep -nx tar`
-
+```
  perf script -i perf.data | ./FlameGraph/stackcollapse-perf.pl | ./FlameGraph/flamegraph.pl > perf.svg
 
- 
  CPU Statistics  "perf stat"
  Timed Profiling "perf record -F 99 -a -g -- sleep 30"
  Event Profiling "perf record -e L1-dcache-load-misses -c 10000 -ag -- sleep 5"
@@ -57,9 +54,11 @@ perf record -e ${bin_name}:${beg_name} -e ${bin_name}:${end_name} -a sleep 10
 
     perf probe -x /lib/x86_64-linux-gnu/libc-2.15.so --add malloc
 
-perf report --sort 
---
-perf record -e L1-dcache-load-misses -c 10000 -ag -- sleep 5
 
+
+perf record -e L1-dcache-load-misses -c 10000 -ag -- sleep 5
 perf record -e probe_a:beg  -e probe_a:end -aR sleep 20
+
+perf report --sort 
+```
 
