@@ -31,6 +31,7 @@ vim scp://username@host//path/to/somefile
 env -i app arg1 …  //without environment run app 
 ```
 
+## gdb
 ```
 commands
     info thread
@@ -41,7 +42,7 @@ save breakpoint bp
 source bp
 ```
 
-
+## vim
 ```
 vim -O2 ~/1.xml  ~/1.json
 
