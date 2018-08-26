@@ -2,17 +2,18 @@
 
 1) 启动docker服务进程后， 会创建一个docker0 （朋友圈）， 
 该host每启动一个container ， 会创建一个veth××， 并默认加入到docker0的朋友圈
-
+```
 // check by ifconfig
 docker0: inet 172.17.0.1
 // check ip address by docker inspect ${container_id}
 container0: "IPAddress": "172.17.0.2"
 container1: "IPAddress": "172.17.0.3"
 container2: "IPAddress": "172.17.0.4"
-
+```
 
 2) 主机 iptables
 
+```
 // run one docker container with "IPAddress": "172.17.0.2"
 [root@izwz92tr9v0fpakny88loaz ~]# docker container ls
 CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                                           NAMES
@@ -44,7 +45,7 @@ Chain DOCKER (2 references)
     0     0 DNAT       tcp  --  !docker0 *       0.0.0.0/0            0.0.0.0/0            tcp dpt:32769 to:172.17.0.2:80
 
 // docker service 负载均衡采用类似的技术 https://www.jianshu.com/p/bbb673e79c3e 
-
+```
 
 3) 自定义一个bridge
 ```
