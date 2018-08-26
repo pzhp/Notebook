@@ -126,7 +126,17 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 192.168.41.0    0.0.0.0         255.255.255.0   U     100    0        0 ens33
 192.168.122.0   0.0.0.0         255.255.255.0   U     0      0        0 virbr0
 
-bridge link show 
+// bridge
+# ip link add name bridge_name type bridge
+# ip link set bridge_name up
+# ip addr add dev bridge_name 192.168.66.66/24
+# ip link set eth0 up
+# ip link set eth0 master bridge_name
+# bridge link show
+This is how to remove an interface from a bridge:
+# ip link set eth0 nomaster
+# ip link set eth0 down
+# ip link delete bridge_name type bridge
 ```
 
 https://segmentfault.com/a/1190000009491002
