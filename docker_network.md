@@ -2,6 +2,7 @@
 
 1) 启动docker服务进程后， 会创建一个docker0 （朋友圈）， 
 该host每启动一个container ， 会创建一个veth××， 并默认加入到docker0的朋友圈
+
 // check by ifconfig
 docker0: inet 172.17.0.1
 // check ip address by docker inspect ${container_id}
@@ -9,7 +10,9 @@ container0: "IPAddress": "172.17.0.2"
 container1: "IPAddress": "172.17.0.3"
 container2: "IPAddress": "172.17.0.4"
 
+
 2) 主机 iptables
+
 // run one docker container with "IPAddress": "172.17.0.2"
 [root@izwz92tr9v0fpakny88loaz ~]# docker container ls
 CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                                           NAMES
@@ -42,7 +45,9 @@ Chain DOCKER (2 references)
 
 // docker service 负载均衡采用类似的技术 https://www.jianshu.com/p/bbb673e79c3e 
 
+
 3) 自定义一个bridge
+```
 // docker network create -d bridge mybridge
 [root@izwz92tr9v0fpakny88loaz ~]# ifconfig
 br-f975a4dce9f9: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
@@ -55,8 +60,10 @@ br-f975a4dce9f9: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
 
 // docker container connect mybridge ${container_id}
 // docker inspect ${contianerid}, 
+```
 mybridge会出现在容器的bridge列表里，并且容器增加一个IPAddress:172.19.0.2， 
 由于要分配一个的IP， 需要一个veth，这个ifconfig可查
+
 ```
             "Networks": {
                 "bridge": {
@@ -94,26 +101,20 @@ mybridge会出现在容器的bridge列表里，并且容器增加一个IPAddress
 
 4）相关命令和调试方法
 
-docker：
-
+**docker：**
+```
 docker run -dit alpine ash
 docker  run -v docker-data:/docker-data -dit alpine ash
 docker run -d -p 4000:80 friendlyhello 
 docker tag <image> username/repository:tag
 CTRL + p CTRL + q
+```
 
-
-Linux cmd:
-
-brctl show 
-ifconfig virbr0 down 
-brctl delbr virbr0 
-
+**Linux cmd:**
+```
 iptables -P INPUT DROP
 iptables -A INPUT -s x.x.x.x -j DROP
-// 端口转发
 iptables -t nat -A PREROUTING -p tcp -d 192.168.102.37 --dport 422 -j DNAT --to 192.168.102.37:22
-
 
 route -n
 [root@localhost zpeng]# route -n
@@ -125,39 +126,8 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 192.168.122.0   0.0.0.0         255.255.255.0   U     0      0        0 virbr0
 
 bridge link show 
-
-
-The docker_gwbridge is a virtual bridge that connects the overlay networks (including the ingress network) to an individual Docker daemon’s physical network
-an overlay network called ingress, which handles control and data traffic related to swarm services.
-
+```
 
 https://segmentfault.com/a/1190000009491002
 
-  +----------------------------------------------------------------+-----------------------------------------+-----------------------------------------+
-|                          Host                                  |              Container 1                |              Container 2                |
-|                                                                |                                         |                                         |
-|       +------------------------------------------------+       |       +-------------------------+       |       +-------------------------+       |
-|       |             Newwork Protocol Stack             |       |       |  Newwork Protocol Stack |       |       |  Newwork Protocol Stack |       |
-|       +------------------------------------------------+       |       +-------------------------+       |       +-------------------------+       |
-|            ↑             ↑                                     |                   ↑                     |                    ↑                    |
-|............|.............|.....................................|...................|.....................|....................|....................|
-|            ↓             ↓                                     |                   ↓                     |                    ↓                    |
-|        +------+     +--------+                                 |               +-------+                 |                +-------+                |
-|        |.3.101|     |  .9.1  |                                 |               |  .9.2 |                 |                |  .9.3 |                |
-|        +------+     +--------+     +-------+                   |               +-------+                 |                +-------+                |
-|        | eth0 |     |   br0  |<--->|  veth |                   |               | eth0  |                 |                | eth0  |                |
-|        +------+     +--------+     +-------+                   |               +-------+                 |                +-------+                |
-|            ↑             ↑             ↑                       |                   ↑                     |                    ↑                    |
-|            |             |             +-------------------------------------------+                     |                    |                    |
-|            |             ↓                                     |                                         |                    |                    |
-|            |         +-------+                                 |                                         |                    |                    |
-|            |         |  veth |                                 |                                         |                    |                    |
-|            |         +-------+                                 |                                         |                    |                    |
-|            |             ↑                                     |                                         |                    |                    |
-|            |             +-------------------------------------------------------------------------------|--------------------+                    |
-|            |                                                   |                                         |                                         |
-|            |                                                   |                                         |                                         |
-|            |                                                   |                                         |                                         |
-+------------|---------------------------------------------------+-----------------------------------------+-----------------------------------------+
-             ↓
-     Physical Network  (192.168.3.0/24)
+
