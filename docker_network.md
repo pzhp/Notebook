@@ -112,6 +112,9 @@ CTRL + p CTRL + q
 ```
 
 **Linux cmd:**
+ifconfig, ethtool, arp, route
+iptables
+perf trace --no-syscalls --event "net:*"
 ```
 iptables -P INPUT DROP
 iptables -A INPUT -s x.x.x.x -j DROP
@@ -137,6 +140,25 @@ This is how to remove an interface from a bridge:
 # ip link set eth0 nomaster
 # ip link set eth0 down
 # ip link delete bridge_name type bridge
+```
+
+###perf trace###
+```
+[root@izwz92tr9v0fpakny88loaz ~]# perf trace --no-syscalls --event "net:*" ping 172.17.0.2 -c1 > /dev/null
+     0.000 net:net_dev_queue:dev=docker0 skbaddr=0xffff88003b248900 len=98)
+     0.011 net:net_dev_queue:dev=veth7233136 skbaddr=0xffff88003b248900 len=98)
+     0.014 net:netif_rx:dev=eth0 skbaddr=0xffff88003b248900 len=84)
+     0.017 net:net_dev_xmit:dev=veth7233136 skbaddr=0xffff88003b248900 len=98 rc=0)
+     0.019 net:net_dev_xmit:dev=docker0 skbaddr=0xffff88003b248900 len=98 rc=0)
+     0.022 net:netif_receive_skb:dev=eth0 skbaddr=0xffff88003b248900 len=84) // eth0 是容器里的接口
+     
+     0.043 net:net_dev_queue:dev=eth0 skbaddr=0xffff88003b248400 len=98)
+     0.045 net:netif_rx:dev=veth7233136 skbaddr=0xffff88003b248400 len=84)
+     0.047 net:net_dev_xmit:dev=eth0 skbaddr=0xffff88003b248400 len=98 rc=0)
+     0.049 net:netif_receive_skb:dev=veth7233136 skbaddr=0xffff88003b248400 len=84)
+     0.059 net:netif_receive_skb_entry:dev=docker0 napi_id=0x1 queue_mapping=0 skbaddr=0xffff88003b248400 vlan_tagged=0 vlan_proto=0x0000 vlan_tci=0x0000 protocol=0x0800 ip_summed=2 hash=0x00000000 l4_hash=0 len=84 data_len=0 truesize=768 mac_header_valid=1 mac_header=-14 nr_frags=0 gso_size=0 gso_type=0)
+     0.061 net:netif_receive_skb:dev=docker0 skbaddr=0xffff88003b248400 len=84)
+
 ```
 
 https://segmentfault.com/a/1190000009491002
