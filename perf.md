@@ -35,6 +35,14 @@ echo '*********************** '
 echo "begin measure"
 perf record -e ${bin_name}:${beg_name} -e ${bin_name}:${end_name} -a sleep 10
 
+##Usage
+perf probe -x a.out --line main
+./perf.sh a.out main:4 main:20
+perf script
+           a.out  7715 [000] 3120451.918413:  probe_a:main_4: (400aac)
+           a.out  7715 [000] 3120452.918818: probe_a:main_20: (400b76)
+
+
 ```
 
 
