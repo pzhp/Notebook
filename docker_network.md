@@ -167,31 +167,36 @@ https://www.cnblogs.com/CloudMan6/p/7096731.html
 
 
 ``` 
-perf record --call-graph dwarf  --  wget www.baidu.com
--    3.85%     0.00%  wget     [kernel.kallsyms]     [k] sys_connect                                                                                     ▒
-     sys_connect                                                                                                                                         ▒
-     SYSC_connect                                                                                                                                        ▒
-     inet_stream_connect                                                                                                                                 ▒
-     __inet_stream_connect                                                                                                                               ▒
-     tcp_v4_connect                                                                                                                                      ▒
-     tcp_connect                                                                                                                                         ◆
-     tcp_transmit_skb                                                                                                                                    ▒
-     ip_queue_xmit                                                                                                                                       ▒
-     ip_local_out_sk                                                                                                                                     ▒
-     ip_output                                                                                                                                           ▒
-     ip_finish_output                                                                                                                                    ▒
-     dev_queue_xmit                                                                                                                                      ▒
-     __dev_queue_xmit                                                                                                                                    ▒
-     sch_direct_xmit                                                                                                                                     ▒
-     dev_hard_start_xmit                                                                                                                                 ▒
-     start_xmit                                                                                                                                          ▒
-     free_old_xmit_skbs.isra.32                                                                                                                          ▒
-     __dev_kfree_skb_any                                                                                                                                 ▒
-     consume_skb                                                                                                                                         ▒
-     kfree_skbmem                                                                                                                                        ▒
-     kmem_cache_free                                                                                                                                     ▒
-     __slab_free                   
-     
+perf record -e net:net_dev_xmit -aR --call-graph dwarf  --  wget www.baidu.com
+perf script
+
+wget 30657 [000] 3110333.025779: net:net_dev_xmit: dev=eth0 skbaddr=0xffff98a2c1d63100 len=73 rc=0
+            7fffb943ad99 dev_hard_start_xmit ([kernel.kallsyms])
+            7fffb9467d6a sch_direct_xmit ([kernel.kallsyms])
+            7fffb943dc61 __dev_queue_xmit ([kernel.kallsyms])
+            7fffb943de30 dev_queue_xmit ([kernel.kallsyms])
+            7fffb948a7b6 ip_finish_output ([kernel.kallsyms])
+            7fffb948ad13 ip_output ([kernel.kallsyms])
+            7fffb9488897 ip_local_out_sk ([kernel.kallsyms])
+            7fffb948b776 ip_send_skb ([kernel.kallsyms])
+            7fffb94b358c udp_send_skb ([kernel.kallsyms])
+            7fffb94b4875 udp_sendmsg ([kernel.kallsyms])
+            7fffb94c1f39 inet_sendmsg ([kernel.kallsyms])
+            7fffb941b3a6 sock_sendmsg ([kernel.kallsyms])
+            7fffb941bad1 SYSC_sendto ([kernel.kallsyms])
+            7fffb941d5ee sys_sendto ([kernel.kallsyms])
+            7fffb9576ddb system_call_fastpath ([kernel.kallsyms])
+                   fee6d __libc_send (/usr/lib64/libc-2.17.so)
+                    a170 __res_context_send (/usr/lib64/libresolv-2.17.so)
+                    70a3 __GI___res_context_query (inlined)
+                    7eef __GI___res_context_search (inlined)
+                    2daa _nss_dns_gethostbyname4_r (/usr/lib64/libnss_dns-2.17.so)
+                   e5793 gaih_inet.constprop.8 (/usr/lib64/libc-2.17.so)
+                   e6b33 __GI_getaddrinfo (inlined)
+                   144f7 [unknown] (/usr/bin/wget)
+                   2f71f [unknown] (/usr/bin/wget)
+
+
 ```
 
 ```
