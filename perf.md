@@ -45,6 +45,7 @@ perf record -e ${bin_name}:${beg_name} -e ${bin_name}:${end_name} -a sleep 10
  CPU Statistics  "perf stat"
  Timed Profiling "perf record -F 99 -a -g -- sleep 30"
  Event Profiling "perf record -e L1-dcache-load-misses -c 10000 -ag -- sleep 5"
+ Trace : perf trace ls
  Dynamic Tracing “perf probe --add tcp_sendmsg”  
     perf probe --del  
     perf probe -V tcp_sendmsg   （var）
