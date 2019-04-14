@@ -166,5 +166,36 @@ https://segmentfault.com/a/1190000009491002
 https://www.cnblogs.com/CloudMan6/p/7096731.html
 
 
+``` 
+perf record --call-graph dwarf  --  wget www.baidu.com
+-    3.85%     0.00%  wget     [kernel.kallsyms]     [k] sys_connect                                                                                     ▒
+     sys_connect                                                                                                                                         ▒
+     SYSC_connect                                                                                                                                        ▒
+     inet_stream_connect                                                                                                                                 ▒
+     __inet_stream_connect                                                                                                                               ▒
+     tcp_v4_connect                                                                                                                                      ▒
+     tcp_connect                                                                                                                                         ◆
+     tcp_transmit_skb                                                                                                                                    ▒
+     ip_queue_xmit                                                                                                                                       ▒
+     ip_local_out_sk                                                                                                                                     ▒
+     ip_output                                                                                                                                           ▒
+     ip_finish_output                                                                                                                                    ▒
+     dev_queue_xmit                                                                                                                                      ▒
+     __dev_queue_xmit                                                                                                                                    ▒
+     sch_direct_xmit                                                                                                                                     ▒
+     dev_hard_start_xmit                                                                                                                                 ▒
+     start_xmit                                                                                                                                          ▒
+     free_old_xmit_skbs.isra.32                                                                                                                          ▒
+     __dev_kfree_skb_any                                                                                                                                 ▒
+     consume_skb                                                                                                                                         ▒
+     kfree_skbmem                                                                                                                                        ▒
+     kmem_cache_free                                                                                                                                     ▒
+     __slab_free                   
+     
+```
+
+```
+ftrace to more 
+
 
 
