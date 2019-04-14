@@ -109,12 +109,21 @@ docker  run -v docker-data:/docker-data -dit alpine ash
 docker run -d -p 4000:80 friendlyhello 
 docker tag <image> username/repository:tag
 CTRL + p CTRL + q
+
+docker ps -a 查看所有的container
+docker container ls
+docker run --name wnginx -d -p 9001:80 -v /home/www:/usr/share/nginx/html nginx
+docker exec -ti -u root 7509371edd48 bash 在running容器中执行命令
 ```
 
 **Linux cmd:**
 ifconfig, ethtool, arp, route
 iptables
 perf trace --no-syscalls --event "net:*"
+brctl show docker0 查看docker0 关联的interface
+tcpdump -i vethf3ec5c5 可以查看流入流出对应容器的流量， docker0也可以
+iptables -A INPUT -p tcp –dport 80 -j LOG –log-level err  –log-prefix “INPUT”
+ping -I eth0  docker0——ip 不通(maybe 没有经过路由)
 ```
 iptables -P INPUT DROP
 iptables -A INPUT -s x.x.x.x -j DROP
@@ -242,5 +251,8 @@ cpus=1
              ssh-30928 [000] 3110612.717883: funcgraph_exit:         0.562 us   |      }
              ssh-30928 [000] 3110612.717883: funcgraph_exit:       + 14.572 us  |    }
              ssh-30928 [000] 3110612.717884: funcgraph_exit:       + 15.500 us  |  }
+
+```
+
 
 
