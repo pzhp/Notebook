@@ -201,6 +201,46 @@ wget 30657 [000] 3110333.025779: net:net_dev_xmit: dev=eth0 skbaddr=0xffff98a2c1
 
 ```
 ftrace to more 
+trace-cmd record -p function_graph -g dev_queue_xmit -O funcgraph-proc -F  -- ssh localhost 22
 
+[root@izwz92tr9v0fpakny88loaz zpeng]# trace-cmd report
+cpus=1
+             ssh-30928 [000] 3110612.717865: funcgraph_entry:                   |  dev_queue_xmit() {
+             ssh-30928 [000] 3110612.717869: funcgraph_entry:                   |    __dev_queue_xmit() {
+             ssh-30928 [000] 3110612.717869: funcgraph_entry:        0.172 us   |      local_bh_disable();
+             ssh-30928 [000] 3110612.717870: funcgraph_entry:        0.206 us   |      netdev_pick_tx();
+             ssh-30928 [000] 3110612.717871: funcgraph_entry:                   |      validate_xmit_skb.isra.105.part.106() {
+             ssh-30928 [000] 3110612.717872: funcgraph_entry:                   |        netif_skb_features() {
+             ssh-30928 [000] 3110612.717872: funcgraph_entry:        0.052 us   |          skb_network_protocol();
+             ssh-30928 [000] 3110612.717873: funcgraph_exit:         0.794 us   |        }
+             ssh-30928 [000] 3110612.717873: funcgraph_entry:        0.050 us   |        skb_csum_hwoffload_help();
+             ssh-30928 [000] 3110612.717874: funcgraph_exit:         1.923 us   |      }
+             ssh-30928 [000] 3110612.717874: funcgraph_entry:                   |      dev_hard_start_xmit() {
+             ssh-30928 [000] 3110612.717875: funcgraph_entry:                   |        loopback_xmit() {
+             ssh-30928 [000] 3110612.717875: funcgraph_entry:                   |          tcp_wfree() {
+             ssh-30928 [000] 3110612.717876: funcgraph_entry:        0.059 us   |            sock_wfree();
+             ssh-30928 [000] 3110612.717876: funcgraph_exit:         0.493 us   |          }
+             ssh-30928 [000] 3110612.717876: funcgraph_entry:        0.600 us   |          eth_type_trans();
+             ssh-30928 [000] 3110612.717877: funcgraph_entry:                   |          netif_rx() {
+             ssh-30928 [000] 3110612.717877: funcgraph_entry:                   |            netif_rx_internal() {
+             ssh-30928 [000] 3110612.717878: funcgraph_entry:                   |              ktime_get_real() {
+             ssh-30928 [000] 3110612.717878: funcgraph_entry:                   |                getnstimeofday64() {
+             ssh-30928 [000] 3110612.717878: funcgraph_entry:        0.145 us   |                  __getnstimeofday64();
+             ssh-30928 [000] 3110612.717879: funcgraph_exit:         0.474 us   |                }
+             ssh-30928 [000] 3110612.717879: funcgraph_exit:         0.951 us   |              }
+             ssh-30928 [000] 3110612.717879: funcgraph_entry:        0.256 us   |              get_rps_cpu();
+             ssh-30928 [000] 3110612.717880: funcgraph_entry:                   |              enqueue_to_backlog() {
+             ssh-30928 [000] 3110612.717880: funcgraph_entry:        0.057 us   |                _raw_qspin_lock();
+             ssh-30928 [000] 3110612.717880: funcgraph_entry:        0.065 us   |                __raise_softirq_irqoff();
+             ssh-30928 [000] 3110612.717881: funcgraph_exit:         1.121 us   |              }
+             ssh-30928 [000] 3110612.717881: funcgraph_exit:         3.493 us   |            }
+             ssh-30928 [000] 3110612.717882: funcgraph_exit:         4.093 us   |          }
+             ssh-30928 [000] 3110612.717882: funcgraph_exit:         6.994 us   |        }
+             ssh-30928 [000] 3110612.717882: funcgraph_exit:         7.956 us   |      }
+             ssh-30928 [000] 3110612.717882: funcgraph_entry:                   |      local_bh_enable() {
+             ssh-30928 [000] 3110612.717883: funcgraph_entry:        0.083 us   |        __local_bh_enable_ip();
+             ssh-30928 [000] 3110612.717883: funcgraph_exit:         0.562 us   |      }
+             ssh-30928 [000] 3110612.717883: funcgraph_exit:       + 14.572 us  |    }
+             ssh-30928 [000] 3110612.717884: funcgraph_exit:       + 15.500 us  |  }
 
 
