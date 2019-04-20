@@ -8,6 +8,8 @@ function =》 set_ftrace_filter
 function_graph =》set_grapch_function 
 ```
 
+https://blog.csdn.net/pwl999/article/details/80627095 
+
 ## tracer: function_graph, trace callgraph including enter/return
 ```
 trace-cmd record -p function_graph -g dev_queue_xmit -O funcgraph-proc -F  -- ssh localhost 22
