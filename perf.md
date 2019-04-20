@@ -47,6 +47,7 @@ perf script
 
 
 -- others
+
 ```
  perf script -i perf.data | ./FlameGraph/stackcollapse-perf.pl | ./FlameGraph/flamegraph.pl > perf.svg
 
@@ -70,4 +71,27 @@ perf record -e probe_a:beg  -e probe_a:end -aR sleep 20
 
 perf report --sort 
 ```
+
+## concept:
+
+int perf_event_open(struct perf_event_attr *attr,pid_t pid, int cpu, int group_fd,
+                    unsigned long flags);
+
+pid == 0: if the pid parameter is zero, the counter is attached to the
+current task.
+pid > 0: the counter is attached to a specific task (if the current task
+has sufficient privilege to do so)
+pid < 0: all tasks are counted (per cpu counters)
+
+cpu >= 0: the counter is restricted to a specific CPU
+cpu == -1: the counter counts on all CPUs
+(Note: the combination of 'pid == -1' and 'cpu == -1' is not valid. **why**)
+
+A 'pid > 0' and 'cpu == -1' counter is a per task counter that counts
+events of that task and 'follows' that task to whatever CPU the task
+gets schedule to. Per task counters can be created by any user, for
+their own tasks.
+
+A 'pid == -1' and 'cpu == x' counter is a per CPU counter that counts
+all events on CPU-x. Per CPU counters need CAP_SYS_ADMIN privilege.
 
