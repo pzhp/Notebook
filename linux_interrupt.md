@@ -33,9 +33,9 @@ update_process_time()
             7fff810b6862 __hrtimer_run_queues ([kernel.kallsyms])
             7fff810b6e00 hrtimer_interrupt ([kernel.kallsyms])
             7fff810530d7 local_apic_timer_interrupt ([kernel.kallsyms])
-            7fff8169accf smp_apic_timer_interrupt ([kernel.kallsyms])
-            7fff8169921d apic_timer_interrupt ([kernel.kallsyms])
-            7fff81516199 cpuidle_idle_call ([kernel.kallsyms])
+            7fff8169accf smp_apic_timer_interrupt ([kernel.kallsyms]) //can ftrace
+            7fff8169921d apic_timer_interrupt ([kernel.kallsyms])  // alloc_intr_gate(LOCAL_TIMER_VECTOR, apic_timer_interrupt);
+            7fff81516199 cpuidle_idle_call ([kernel.kallsyms]) // driver
             7fff8103716e arch_cpu_idle ([kernel.kallsyms])
             7fff810e9c95 cpu_startup_entry ([kernel.kallsyms])
             7fff8105112a start_secondary ([kernel.kallsyms])
