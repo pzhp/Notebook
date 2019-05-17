@@ -133,6 +133,29 @@ void __account_system_time(struct task_struct *p, cputime_t cputime,
 	/* Account for system time used */
 	acct_account_cputime(p);
 }
+
+void __irq_entry smp_apic_timer_interrupt(struct pt_regs *regs)
+{
+	struct pt_regs *old_regs = set_irq_regs(regs);
+
+	/*
+	 * NOTE! We'd better ACK the irq immediately,
+	 * because timer handling can be slow.
+	 */
+	ack_APIC_irq();
+	/*
+	 * update_process_times() expects us to have done irq_enter().
+	 * Besides, if we don't timer interrupts ignore the global
+	 * interrupt lock, which is the WrongThing (tm) to do.
+	 */
+	irq_enter();
+	exit_idle();
+	local_apic_timer_interrupt();
+	irq_exit();
+
+	set_irq_regs(old_regs);
+}
+
 ```
 
 ``` /usr/local/bin/trace-cmd record -p function_graph -g hrtimer_interrupt  -O funcgraph-proc -F ping ** 
