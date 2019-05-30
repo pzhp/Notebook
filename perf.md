@@ -1,4 +1,13 @@
 
+ftrace
+perf
+eBPF
+BCC
+sysdig = strace + tcpdump + htop + iftop + lsof + docker inspect
+
+
+
+
 measure duration
 ```bash
 #!/bin/bash
