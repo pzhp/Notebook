@@ -100,6 +100,26 @@ mybridge会出现在容器的bridge列表里，并且容器增加一个IPAddress
 
 ```
 
+```
+##UDP: overlay
+flanneld 维护pod ip =》node ip
+##VXLAN: overlay
+flanneld: 
+    route table(pod ip => interface) route -n
+    arp table(pod ip => dst vtep mac)  ip neigh show dev flannel.1
+    fdb table(dst vtep mac => node ip)  bridge fdb show flannel.1
+## host-gw：no wrap and unwrap, no vtep device
+$ ip route
+...
+10.244.1.0/24 via 10.168.0.3 dev eth0
+...
+pod ip => node ip
+layer 2 相通 （直接使用dst ip的mac地址作为目的mac）， 同一子网
+
+calico vs flannel host-gw
+calcico “IPIP”：隧道方案
+```
+
 4）相关命令和调试方法
 
 **docker：**
