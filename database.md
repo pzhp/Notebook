@@ -95,5 +95,8 @@ the standard isolation levels to the multiversion concurrency control architectu
 
 https://wiki.hsr.ch/Datenbanken/files/Paper_ANSI_SQL_Isolation_Levels_Stefan_Luetolf_V2_1.pdf
 
+## write skew
+- PostgreSQL prevents it using its more advanced Serializable Snapshot Isolation level.
+- MySQL employs shared locks when using Serializable so the write skew can be prevented even if InnoDB is also MVCC-based.
 
 
