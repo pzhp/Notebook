@@ -95,6 +95,8 @@ the standard isolation levels to the multiversion concurrency control architectu
 
 https://wiki.hsr.ch/Datenbanken/files/Paper_ANSI_SQL_Isolation_Levels_Stefan_Luetolf_V2_1.pdf
 
+就这么简单吗？ 其实幻读有很多种出现形式，简单的SELECT不加条件的查询在RR下肯定是读不到隔壁事务提交的数据的。但是仍然可能在执行INSERT/UPDATE时遇到幻读现象。因为SELECT 不加锁的快照读行为是无法限制其他事务对新增重合范围的数据的插入的。
+
 ## write skew
 - PostgreSQL prevents it using its more advanced Serializable Snapshot Isolation level.
 - MySQL employs shared locks when using Serializable so the write skew can be prevented even if InnoDB is also MVCC-based.
