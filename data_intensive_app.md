@@ -7,7 +7,7 @@
 - Transaction:  
   Yes
  
- ## MongoDB:
+## MongoDB:
 - Partition  
   Range, Hash
 - Replication/Sharding  
@@ -43,12 +43,18 @@ Cluster coordination model vs Data replication model
   	- local checkpoint, global checkpoint
 - Transaction:
 
-## Cassandra
+## Cassandra(CAP:AP)
+- data model from Bigtable, distributed design from DynamoDB
+- decentralized(gossip), 
 - Partition
   consistence hash
 - Replication/Sharding
 	choose sync/async, hinted handoff, read repair
 - Transaction:
   
- ## HBase
+## HBase(CAP:CP)
+- Strongly consistent reads/writes
+
+## DynamoDB
+- DynamoDb离线检查采用的Merkle Tree
   
