@@ -24,22 +24,22 @@
   Yes
 
 ## Redis
-- Partition
+- Partition  
   Hash slot: HASH_SLOT = CRC16(key) mod 16384
-- Replication/Sharding
+- Replication/Sharding  
   asynchronous replication,  with asynchronous slave-to-master acknowledges of the amount of data processed
   [https://redis.io/topics/replication](https://redis.io/topics/replication)
-- Transaction:
+- Transaction:  
   Yes
 ## ElasticSearch
-Cluster coordination model vs Data replication model
-- Partition
+Cluster coordination model vs Data replication model  
+- Partition  
  
-- Replication/Sharding
+- Replication/Sharding  
   ESV7 introduce new consensus algorithm, before that it is zen discovery
-  **before 6.0.0**
+  **before 6.0.0**  
   [https://www.elastic.co/cn/elasticon/conf/2017/sf/consensus-and-replication-in-elasticsearch](https://www.elastic.co/cn/elasticon/conf/2017/sf/consensus-and-replication-in-elasticsearch)  
-  **6.0.0** introduce sequence number based data replication approach
+  **6.0.0** introduce sequence number based data replication approach  
   	- local checkpoint, global checkpoint
 - Transaction:
 
