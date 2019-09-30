@@ -1,24 +1,24 @@
 
 ## TiDB:
-- Partition
+- Partition  
   Range, Hash(?)
-- Replication/Sharding
+- Replication/Sharding  
   Raft
-- Transaction:
+- Transaction:  
   Yes
  
  ## MongoDB:
-- Partition
+- Partition  
   Range, Hash
-- Replication/Sharding
+- Replication/Sharding  
   Raft
-- Transaction:
+- Transaction:  
   Yes (v4.0)
 
 ## Kafka
-- Partition
+- Partition  
   customized
-- Replication/Sharding
+- Replication/Sharding  
   in-sync replica (follower pull)
 - Transaction:
   Yes
@@ -32,10 +32,15 @@
 - Transaction:
   Yes
 ## ElasticSearch
+Cluster coordination model vs Data replication model
 - Partition
-  
+ 
 - Replication/Sharding
-  [https://www.elastic.co/cn/elasticon/conf/2017/sf/consensus-and-replication-in-elasticsearch](https://www.elastic.co/cn/elasticon/conf/2017/sf/consensus-and-replication-in-elasticsearch)
+  ESV7 introduce new consensus algorithm, before that it is zen discovery
+  **before 6.0.0**
+  [https://www.elastic.co/cn/elasticon/conf/2017/sf/consensus-and-replication-in-elasticsearch](https://www.elastic.co/cn/elasticon/conf/2017/sf/consensus-and-replication-in-elasticsearch)  
+  **6.0.0** introduce sequence number based data replication approach
+  	- local checkpoint, global checkpoint
 - Transaction:
 
 ## Cassandra
