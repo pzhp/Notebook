@@ -8,6 +8,8 @@ Parallelism and concurrency features and future of direction of c++ towards hete
 
 5-721 Advanced Database Systems Spring 2020
 
+Windows Azure Storage: A highly Available Cloud Storage Service with Strong Consistency
+
 **blog**
 
 http://mesos.apache.org/documentation/latest/high-availability-framework-guide/ 
