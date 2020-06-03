@@ -12,6 +12,8 @@ Parallelism and concurrency features and future of direction of c++ towards hete
 
 Windows Azure Storage: A highly Available Cloud Storage Service with Strong Consistency
 
+HLC https://cse.buffalo.edu/tech-reports/2014-04.pdf
+
 **blog**
 
 http://mesos.apache.org/documentation/latest/high-availability-framework-guide/ 
