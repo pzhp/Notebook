@@ -5,6 +5,7 @@ Fault-Tolerant Message-Passing Distributed Systems
 **paper & slides**
 
 A Unified Executors http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p0443r13.html
+
 Parallelism and concurrency features and future of direction of c++ towards heterogenous programming - Michael Wong
 
 5-721 Advanced Database Systems Spring 2020
