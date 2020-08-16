@@ -15,6 +15,12 @@
 - Transaction:  
   Yes (v4.0)
 
+## Etcd:
+- Partition  
+- Replication  
+  Raft
+- Transaction:  
+
 ## Kafka
 - Partition  
   customized
