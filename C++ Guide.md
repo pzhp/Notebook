@@ -2,6 +2,9 @@
 # 1 Core C++
 
 ## 1) name lookup & ODR
+```
+two stage name lookup
+```
 ## 2) virutal function
 ## 3) type deductiton
 ## 4) overload&conversion:
