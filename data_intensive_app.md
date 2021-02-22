@@ -43,8 +43,10 @@ Cluster coordination model vs Data replication model
  
 - Replication  
   ESV7 introduce new consensus algorithm, before that it is zen discovery
+  
   **before 6.0.0**  
   [https://www.elastic.co/cn/elasticon/conf/2017/sf/consensus-and-replication-in-elasticsearch](https://www.elastic.co/cn/elasticon/conf/2017/sf/consensus-and-replication-in-elasticsearch)  
+  
   **6.0.0** introduce sequence number based data replication approach  
   	- local checkpoint, global checkpoint
 - Transaction:
