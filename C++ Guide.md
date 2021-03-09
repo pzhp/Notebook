@@ -47,9 +47,10 @@ two stage name lookup
     template
     functional
     generic program
-    statful/type rich
+    stateful/type rich
+    expression template
 ## util:
-    Debug/profile
+    Debug/profile: gdb/valgrind/perf
     Compiler/Linker
     Memory layout
     Memory model: atomic & lock
@@ -57,6 +58,4 @@ two stage name lookup
 # 3 Cases:
     auto_ptr/auto_ptr_ref
     c++ idiom
-
-
 
