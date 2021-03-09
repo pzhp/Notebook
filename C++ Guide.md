@@ -23,6 +23,7 @@ two stage name lookup
 ## 6) specialization   
 ## 7) misc
     lvalue&rvalue
+    two phase initialization
     SFINAE
         enable_if/void_t/decltype/declval/consexpr
     
@@ -47,6 +48,11 @@ two stage name lookup
     functional
     generic program
     statful/type rich
+## util:
+    Debug/profile
+    Compiler/Linker
+    Memory layout
+    Memory model: atomic & lock
 
 # 3 Cases:
     auto_ptr/auto_ptr_ref
