@@ -3,7 +3,7 @@
 
 ## 1) name lookup & ODR
 ```
-two stage name lookup
+two-phase name lookup
 ```
 ## 2) virutal function
 ## 3) type deductiton
@@ -23,7 +23,7 @@ two stage name lookup
 ## 6) specialization   
 ## 7) misc
     lvalue&rvalue
-    two phase initialization
+    static initialization(const, zero[bss])， dynamic initialization
     SFINAE
         enable_if/void_t/decltype/declval/consexpr
     
