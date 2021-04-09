@@ -2,7 +2,7 @@
 多个goroutine同时等在一个Mutex上，Lock/Unlock的流程：
 
 
-```
+``` golang
 
 
 // A semaRoot holds a balanced tree of sudog with distinct addresses (s.elem).
