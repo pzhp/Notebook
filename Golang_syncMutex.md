@@ -50,7 +50,7 @@ type sudog struct {
   // case 1: S->nil  
   // case 2: S->S1->S2->nil
   //      dequeue: remove S from list, adjust list and treap
-  //      queue: add to list head or tail
+  //      queue: add to list head or tail based on bool lifo
 	waitlink *sudog // next sudog
 	waittail *sudog // fast locate tailing to add new sudog
   
