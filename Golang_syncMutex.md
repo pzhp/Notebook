@@ -1,5 +1,5 @@
 
-多个goroutine同时等在一个Mutex上，Lock/Unlock的流程：
+多个goroutine同时等在一个Mutex上，Lock/Unlock, 本质上： Mutex-> Sema ->futexwakeup/futexsleep
 
 ```
                                  ┌──────────┐                                    
@@ -99,6 +99,17 @@ type sudog struct {
   
 	c        *hchan // channel
 }
+
+```
+
+
+``` C++
+// Linux:
+struct semaphore {
+	raw_spinlock_t		lock;
+	unsigned int		count;
+	struct list_head	wait_list;
+};
 
 ```
 
