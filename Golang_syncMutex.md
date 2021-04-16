@@ -105,11 +105,45 @@ type sudog struct {
 
 ``` C++
 // Linux:
+// spinlock
+// spin_lock:     disable_preempt
+// spin_lock_bh:  disable software interrupt
+// spin_lock_irq: disable hardware interrupt
+// spin_lock_irqsave: // lock1; lock2; unlock2; trigger clear disable hardware interrupt, so need it
+
+
+
 struct semaphore {
 	raw_spinlock_t		lock;
 	unsigned int		count;
 	struct list_head	wait_list;
 };
 https://blog.csdn.net/weixin_41177620/article/details/90735287
+
+
+/*
+ * - only one task can hold the mutex at a time
+ * - only the owner can unlock the mutex
+ * - multiple unlocks are not permitted
+ * - recursive locking is not permitted
+ * ....
+ * /
+struct mutex {
+	/* 1: unlocked, 0: locked, negative: locked, possible waiters */
+	atomic_t		count;
+	spinlock_t		wait_lock;
+	struct list_head	wait_list;
+#if defined(CONFIG_DEBUG_MUTEXES) || defined(CONFIG_SMP)
+	struct thread_info	*owner;
+#endif
+#ifdef CONFIG_DEBUG_MUTEXES
+	const char 		*name;
+	void			*magic;
+#endif
+#ifdef CONFIG_DEBUG_LOCK_ALLOC
+	struct lockdep_map	dep_map;
+#endif
+};
+
 ```
 
