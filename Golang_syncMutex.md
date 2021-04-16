@@ -111,6 +111,20 @@ type sudog struct {
 // spin_lock_irq: disable hardware interrupt
 // spin_lock_irqsave: // lock1; lock2; unlock2; trigger clear disable hardware interrupt, so need it
 
+typedef struct qspinlock {
+    union {
+        atomic_t val;
+
+        struct {
+            u8    locked;
+            u8    pending;
+        };
+        struct {
+            u16    locked_pending;
+            u16    tail;
+        };
+    };
+} arch_spinlock_t;
 
 
 struct semaphore {
