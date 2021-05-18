@@ -16,6 +16,8 @@ two-phase name lookup
             pointer order
                 derived => base (shortest path) / void* / bool / to pointer, other int cannot 
         user-defined conversion
+            conversion operator
+            conversion constructor
 ```
 ## 5) instantiation:
     when to trigger instantiation(explicit & implicit)
