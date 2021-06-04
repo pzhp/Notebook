@@ -3,8 +3,15 @@
 |  ----  | ----   | ---- | ---- | ---- |
 | SpinLock  |  | | ||
 | Mutex  |  | | ||
-|RWLock|  | | ||
-|Sem|  | | ||
+| RWLock|  | | ||
+| Sem|  | | ||
+
+|Name |Quantity|
+|-----|--------|
+|Apple|3       |
+|Egg  |12      |
+
+
 
 ```
 1. Ticket
