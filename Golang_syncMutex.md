@@ -161,3 +161,18 @@ struct mutex {
 
 ```
 
+``` semaphore: Linux kernel
+struct semaphore {
+    raw_spinlock_t        lock;
+    unsigned int        count;
+    struct list_head    wait_list; // put waiting task in the list
+};
+
+// wrapper for a task
+struct semaphore_waiter {
+	struct list_head list;
+	struct task_struct *task;
+	bool up;
+};
+```
+
