@@ -1,10 +1,10 @@
 
 |  Lock   | Linux Kernel  | Golang |  pthread |
-|  ----  | ----   | ---- | ---- | ---- |
-| SpinLock  |  | | ||
-| Mutex  |  | | ||
-| RWLock|  | | ||
-| Sem|  | | ||
+|  ----   | ----          | ----   | ----     |
+| SpinLock|  | | |
+| Mutex   |  | | |
+| RWLock  |  | | |
+| Sem     |  | | |
 
 |Name |Quantity|
 |-----|--------|
