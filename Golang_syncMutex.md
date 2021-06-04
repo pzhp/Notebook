@@ -1,3 +1,31 @@
+|  Lock   | Linux Kernel  | Golang |  pthread
+|  ----  | ----   | ---- | ---- | ---- 
+| SpinLock  |  | |
+| Mutex  |  | |
+|RWLock|
+|Sem|
+
+```
+1. Ticket
+2. CLHLock
+CLH锁是一种基于链表的可扩展、高性能、公平的自旋锁，申请线程只在本地变量上自旋，它不断轮询前驱的状态，如果发现前驱释放了锁就结束自旋，获得锁。
+CLHLock是通过轮询其前驱节点的状态
+
+3. MCSLock
+https://zhuanlan.zhihu.com/p/89058726
+MCSLock则是对本地变量的节点进行循环。
+MCS则是查看当前节点的锁状态。
+MCS spin lock
+
+4. qspinlock
+https://zhuanlan.zhihu.com/p/100546935 
+
+5. 其他
+	Mutex per core
+		one represent per core
+	NUMA Aware 
+```
+
 
 多个goroutine同时等在一个Mutex上，Lock/Unlock, 本质上： Mutex-> Sema ->futexwakeup/futexsleep
 
