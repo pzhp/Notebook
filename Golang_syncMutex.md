@@ -1,9 +1,10 @@
-|  Lock   | Linux Kernel  | Golang |  pthread
-|  ----  | ----   | ---- | ---- | ---- 
-| SpinLock  |  | |
-| Mutex  |  | |
-|RWLock|
-|Sem|
+
+|  Lock   | Linux Kernel  | Golang |  pthread |
+|  ----  | ----   | ---- | ---- | ---- |
+| SpinLock  |  | | ||
+| Mutex  |  | | ||
+|RWLock|  | | ||
+|Sem|  | | ||
 
 ```
 1. Ticket
