@@ -22,6 +22,9 @@ MCS spin lock
 4. qspinlock
 https://zhuanlan.zhihu.com/p/100546935 
 
+5. osq lock: combined MCS lock and qspinlock for mutex/rwsem 
+https://zhuanlan.zhihu.com/p/90508284
+
 5. 其他
 	Mutex per core
 		one represent per core
