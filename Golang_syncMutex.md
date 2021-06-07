@@ -172,16 +172,15 @@ https://blog.csdn.net/weixin_41177620/article/details/90735287
  * - recursive locking is not permitted
  * ....
  * /
+// Linux v5.13
 struct mutex {
-	/* 1: unlocked, 0: locked, negative: locked, possible waiters */
-	atomic_t		count;
+	atomic_long_t		owner;
 	spinlock_t		wait_lock;
-	struct list_head	wait_list;
-#if defined(CONFIG_DEBUG_MUTEXES) || defined(CONFIG_SMP)
-	struct thread_info	*owner;
+#ifdef CONFIG_MUTEX_SPIN_ON_OWNER
+	struct optimistic_spin_queue osq; /* Spinner MCS lock */
 #endif
+	struct list_head	wait_list;
 #ifdef CONFIG_DEBUG_MUTEXES
-	const char 		*name;
 	void			*magic;
 #endif
 #ifdef CONFIG_DEBUG_LOCK_ALLOC
@@ -191,7 +190,7 @@ struct mutex {
 
 ```
 
-``` semaphore: Linux kernel
+``` Linux kernel
 struct semaphore {
     raw_spinlock_t        lock;
     unsigned int        count;
