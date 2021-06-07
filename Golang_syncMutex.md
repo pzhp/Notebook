@@ -24,6 +24,9 @@ https://zhuanlan.zhihu.com/p/100546935
 
 5. osq lock: combined MCS lock and qspinlock for mutex/rwsem 
 https://zhuanlan.zhihu.com/p/90508284
+fast path:
+mid path [spnner queue]: spnner, assume previous ownert release lock fast
+slow path [waiter queue]: waiter
 
 5. 其他
 	Mutex per core
@@ -193,18 +196,4 @@ struct mutex {
 
 ```
 
-``` Linux kernel
-struct semaphore {
-    raw_spinlock_t        lock;
-    unsigned int        count;
-    struct list_head    wait_list; // put waiting task in the list
-};
-
-// wrapper for a task
-struct semaphore_waiter {
-	struct list_head list;
-	struct task_struct *task;
-	bool up;
-};
-```
 
