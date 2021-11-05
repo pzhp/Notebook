@@ -53,7 +53,7 @@ Cluster coordination model vs Data replication model
 
 ## Cassandra(CAP:AP)
 - data model from Bigtable, distributed design from DynamoDB
-- decentralized(gossip), 
+- decentralized(gossip)， masterless architecture
 - Partition
   consistence hash
 - Replication/Sharding
@@ -65,4 +65,9 @@ Cluster coordination model vs Data replication model
 
 ## DynamoDB
 - DynamoDb离线检查采用的Merkle Tree
+
+## Amazon Aurora
+- multimaster architure
   
+## Snowflake
+
