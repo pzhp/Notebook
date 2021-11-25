@@ -70,4 +70,8 @@ Cluster coordination model vs Data replication model
 - multimaster architure
   
 ## Snowflake
+- meta data FoundationDB
+
+## Spanner
+- TrueTime
 
