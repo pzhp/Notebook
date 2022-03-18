@@ -75,3 +75,5 @@ Cluster coordination model vs Data replication model
 ## Spanner
 - TrueTime
 
+## ClickHouse
+- 
