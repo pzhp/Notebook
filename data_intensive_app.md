@@ -76,4 +76,7 @@ Cluster coordination model vs Data replication model
 - TrueTime
 
 ## ClickHouse
-- 
+- column-oriented, OLAP 
+- shard
+- replication
+- no transaction
