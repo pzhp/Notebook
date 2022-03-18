@@ -28,7 +28,8 @@
   in-sync replica (follower pull)
 - Transaction:
   Yes
-
+## Apache Pulsar
+- 
 ## Redis
 - Partition  
   Hash slot: HASH_SLOT = CRC16(key) mod 16384
