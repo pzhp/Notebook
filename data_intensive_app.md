@@ -1,5 +1,6 @@
 
 ## TiDB:
+- shared-nothing
 - Partition  
   Range, Hash(?)
 - Replication  
@@ -69,9 +70,11 @@ Cluster coordination model vs Data replication model
 
 ## Amazon Aurora
 - multimaster architure
+- shared-disk
   
 ## Snowflake
 - meta data FoundationDB
+- hybrid of traditional shared-disk（data-> cloud） and shared-nothing database architectures (compute only partial data)
 
 ## Spanner
 - TrueTime
