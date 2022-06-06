@@ -78,6 +78,11 @@ Cluster coordination model vs Data replication model
 
 ## Spanner
 - TrueTime
+- Paxos
+
+## F1
+- Based on Spanner
+- *Schema change*: absent --> delete only --> write only --(reorg)--> public   (TiDB also use it)
 
 ## ClickHouse
 - column-oriented, OLAP 
