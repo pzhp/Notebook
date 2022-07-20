@@ -70,6 +70,8 @@ Cluster coordination model vs Data replication model
 
 ## Amazon Aurora
 - multimaster architure
+ 	Aurora reports a write conflict to your application as a deadlock error. This error condition causes the transaction to roll back. 
+	If two DB instances attempt to modify the same data page at almost the same instant, a write conflict occurs. The earliest change request is approved using a quorum voting mechanism. That change is saved to permanent storage. The DB instance whose change isn't approved rolls back the entire transaction containing the attempted change. 
 - shared-disk
   
 ## Snowflake
