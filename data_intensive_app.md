@@ -54,7 +54,7 @@ Cluster coordination model vs Data replication model
 - Transaction:
 
 ## Cassandra(CAP:AP)
-- data model from Bigtable, distributed design from DynamoDB
+- data model from Bigtable, distributed design from DynamoDB - wide-column storage
 - decentralized(gossip)， masterless architecture
 - Partition
   consistence hash
@@ -90,8 +90,10 @@ Cluster coordination model vs Data replication model
 - meta data FoundationDB
 - hybrid of traditional shared-disk（data-> cloud） and shared-nothing database architectures (compute only partial data)
 
+## Bigtable
+- single master to keep strong consistency
 ## Spanner
-- TrueTime
+- TrueTime -> to keep strong consistency
 - Paxos
 
 ## F1
