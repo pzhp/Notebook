@@ -105,3 +105,10 @@ Cluster coordination model vs Data replication model
 - shard
 - replication
 - no transaction
+
+## deepseek-ai/3FS - Fire-Flyer File System
+
+## SeaweedFS 
+- fid: (volumeId, fileKey)
+- Filer: map file path to fid.
+- hot data: replica, code data: EC
